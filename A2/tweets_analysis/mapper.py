@@ -11,14 +11,16 @@ for line in sys.stdin:
         data = json.loads(line)
         tweet_text.append(data["text"])
 
+
+# declare list of pronouns for search    
+pronouns = ["han","hon","den","det","denna","denne","hen"]
+
 # input comes from STDIN (standard input)
 for line in tweet_text:
     # remove leading and trailing whitespace
     line = line.strip()
     # split the line into words
     words = line.split()
-    # declare list of pronouns for search    
-    pronouns = ["han","hon","den","det","denna","denne","hen"]
     # use regrex to search for words with special characters
     regrex = re.compile('[^a-öA-Ö]')
     # increase counters
@@ -28,6 +30,7 @@ for line in tweet_text:
         # Reduce step, i.e. the input for reducer.py
         #
         # tab-delimited; the trivial word count is 1
+
         # split the words by special characters and match it with elements in pronouns.
         splitted = regrex.split(word.lower())
         for s_words in splitted:
