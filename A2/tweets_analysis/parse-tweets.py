@@ -5,7 +5,8 @@ import sys, json
 
 arg = sys.argv[1]
 
-for line in arg:
-    if not line.isspace():
-        data = json.loads(line)
-        print(data["text"])
+with open(arg, 'r') as f:
+    for line in f:
+        if not line.isspace():
+            data = json.loads(line)
+            print(data["text"])
