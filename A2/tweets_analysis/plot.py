@@ -8,5 +8,9 @@ import sys
 input_file = sys.argv[1]
 
 data = pd.read_csv(input_file, sep="\t", header=None, names=["pronouns","freq"])
+
+# normalize the freq column
+data['freq'] = data['freq']/data['freq'].sum()
+
 data.plot(kind='bar', y='freq', x='pronouns')
 plt.savefig('output.png')
