@@ -9,8 +9,8 @@ tweet_text = []
 for line in sys.stdin:
     if not line.isspace():
         data = json.loads(line)
-        tweet_text.append(data["text"])
-
+        if not 'retweeted_status' in data:
+            tweet_text.append(data["text"])
 
 # declare list of pronouns for search    
 pronouns = ["han","hon","den","det","denna","denne","hen"]
