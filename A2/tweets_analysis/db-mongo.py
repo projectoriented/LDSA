@@ -1,37 +1,34 @@
 #!/usr/bin/env python3.6
+"""db-mongo.py"""
 
-import pymongo
+"""This script will load in unique tweet data to MongoDB with each tweet as a single document"""
+
+
 from pymongo import MongoClient
 import sys, json
 
-#dir_file = sys.argv[1]
+dir_file = sys.argv[1]
 
+# Connect to the MongoDB server
 client = MongoClient('mongodb://localhost:27017/')
-db = client['twitter']
-collection_tweets = db['tweets']
 
-"""
+# Initiate + write a database
+db = client['twitter']
+
+# Declare name of collections
+collection_tweets = db.collection_tweets
+
+# Parse the tweet JSON files and grab only the texts (tweets)
+tweet = []
 with open(dir_file, 'r') as f:
     for line in f:
         if not line.isspace():
             data = json.loads(line)
+            tweet.append(data['text'])
 
-collection_tweets.insert_many(data)
-client.close()
+# take the unique tweets
+tweet = set(tweet)
 
-post = {"author":"Mei",
-        "text":"Yay! My first tweet.",
-        }
-
-posts = create_db.posts
-result = posts.insert_one(post)
-
-meis_post = posts.find_one({'author':'Mei'})
-
-print(meis_post)
-
-collection_tweets.drop()
-"""
-
-
-print(client.database_names())
+# Load into the database; each tweet is its own document in collection_tweets.
+for text in tweet:
+    collection_tweets.insert_one({'tweet':text})

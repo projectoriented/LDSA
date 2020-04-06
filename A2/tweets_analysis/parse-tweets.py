@@ -2,16 +2,17 @@
 """parse-tweets.py"""
 
 import sys, json
+import re
 
 arg = sys.argv[1]
 
 
+data=[]
 with open(arg, 'r') as f:
     for line in f:
         if not line.isspace():
-            data = json.loads(line)
-            if not 'retweeted_status' in data:
-                print(data['text'])
-#            else:
-#                dupes.append(data['retweeted_status']['text'])
+            data.append(json.loads(line)['text'])
 
+data = set(data)
+for x in data:
+    print(x)

@@ -1,19 +1,21 @@
 #!/usr/bin/env python3
 """mapper.py"""
 
-import sys
-import re
-import json
+import sys, json, re
 
 tweet_text = []
 for line in sys.stdin:
     if not line.isspace():
         data = json.loads(line)
-        if not 'retweeted_status' in data:
-            tweet_text.append(data["text"])
+        tweet_text.append(data['text'])
+
+
+# fetch the unique tweets
+tweet_text = set(tweet_text)
 
 # declare list of pronouns for search    
 pronouns = ["han","hon","den","det","denna","denne","hen"]
+
 
 # input comes from STDIN (standard input)
 for line in tweet_text:
@@ -21,8 +23,10 @@ for line in tweet_text:
     line = line.strip()
     # split the line into words
     words = line.split()
+
     # use regrex to search for words with special characters
     regrex = re.compile('[^a-öA-Ö]')
+
     # increase counters
     for word in words:
         # write the results to STDOUT (standard output);
