@@ -14,4 +14,4 @@ data = pd.read_csv(input_file, sep="\t", header=None, names=['pronouns', 'freq']
 data['freq'] = data['freq']/unique_tweet_total
 
 data.plot(kind='bar', y='freq', x='pronouns')
-plt.savefig('output_hdfs.png')
+plt.savefig('output_mongodb.png')

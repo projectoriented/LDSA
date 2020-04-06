@@ -9,6 +9,7 @@ collection_tweets = db.collection_tweets
 unique_tweet_count = db.collection_tweets.count() # fetch total doc. count in the collection
 
 pronouns = ["han","hon","den","det","denna","denne","hen"] # pronouns to search for in each tweet
+pronouns.sort()
 
 for x in pronouns:
     counter = 0

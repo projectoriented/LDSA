@@ -1,7 +1,7 @@
-han	846795
-hon	398012
 den	1460369
-det	582401
 denna	25692
 denne	4550
+det	582401
+han	846795
 hen	38305
+hon	398012
