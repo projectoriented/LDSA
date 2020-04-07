@@ -9,7 +9,7 @@ import org.apache.hadoop.mapreduce.Mapper;
 import org.apache.hadoop.mapreduce.Reducer;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
-public class WordCount {
+public class FirstLetterCount {
   public static class TokenizerMapper
        extends Mapper<Object, Text, Text, IntWritable>{
     private final static IntWritable one = new IntWritable(1);
@@ -19,7 +19,6 @@ public class WordCount {
       StringTokenizer itr = new StringTokenizer(value.toString());
       while (itr.hasMoreTokens()) {
 	  String character = itr.nextToken();
-	  // Use Character class to ensure char data type. Lowercase the first position of the key passed in the tokens.
 	      if (Character.isLetter(Character.toLowerCase(character.charAt(0)))) {
 		  word.set(String.valueOf(Character.toLowerCase(character.charAt(0))));
 	      context.write(word, one);
@@ -44,7 +43,7 @@ public class WordCount {
   public static void main(String[] args) throws Exception {
     Configuration conf = new Configuration();
     Job job = Job.getInstance(conf, "word count");
-    job.setJarByClass(WordCount.class);
+    job.setJarByClass(FirstLetterCount.class);
     job.setMapperClass(TokenizerMapper.class);
     job.setCombinerClass(IntSumReducer.class);
     job.setReducerClass(IntSumReducer.class);
