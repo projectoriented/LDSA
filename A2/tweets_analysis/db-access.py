@@ -32,7 +32,7 @@ mapper = Code("""
                     pronouns.sort();
                     var tweet = this.tweet
 
-                    var num_pronouns
+                    var num_pronouns = 0;
                     for (var i = 0; i < pronouns.length; i++){
                         let regrex = new RegExp(`[\W \w]?\\b{pronouns[i]}\\b[\W \w]?`, 'ig');
                         num_pronouns = tweet.match(regrex)
