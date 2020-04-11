@@ -28,25 +28,26 @@ print('unique_tweet_count\t{}'.format(unique_tweet_count))
 
 mapper = Code("""
                 function () {
-                    this.tags.forEach(function(z) {
-                        emit(z, 1);
-                    });
+                    pronouns = ["han","hon","den","det","denna","denne","hen"]
+                    pronouns.sort();
+                    var tweet = this.tweet
+
+                    var num_pronouns
+                    for (var i = 0; i < pronouns.length; i++){
+                        let regrex = new RegExp(`[\W \w]?\\b{pronouns[i]}\\b[\W \w]?`, 'ig');
+                        num_pronouns = tweet.match(regrex)
+                        emit(pronouns[i], num_pronouns.length)
+                    }
                 }
                 """)
 
 reducer = Code("""
                 function (key, values) {
-                    pronouns = ["han","hon","den","det","denna","denne","hen"]
-                    pronouns.sort();
-
-                    for (var i = 0; i < pronouns.length; i++){
-                        let regrex = new RegExp(`[\W \w]?\\b{pronouns[i]}\\b[\W \w]?`, 'ig');
-                        var num_pronouns = 0;
-                        for (var j = 0; j < values.length; j++) {
-                            num_pronouns += values[j].match(regrex);
-                        }
-                        return num_pronouns;
+                    var total = 0;
+                    for (var i = 0; i < values.length; i++) {
+                        total += values[i];
                     }
+                    return total;
                 }
                 """)
 
