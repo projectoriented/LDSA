@@ -37,7 +37,7 @@ mapper = Code("""
                         let regrex = new RegExp(`\\b\\d*\\w*den\\d*\\w*\\b`, 'ig');
                         num_pronouns = tweet.match(regrex).length
                         if (num_pronouns == null){
-                            continue;
+                            num_pronouns = 0
                         } else {
                             emit(pronouns[i], num_pronouns)
                         }
