@@ -28,13 +28,13 @@ print('unique_tweet_count\t{}'.format(unique_tweet_count))
 
 mapper = Code("""
                 function () {
-                    pronouns = ["han","hon","den","det","denna","denne","hen"]
+                    var pronouns = ["han","hon","den","det","denna","denne","hen"]
                     pronouns.sort();
-                    var tweet = this.tweet
+                    var tweet = this.tweet;
 
                     var num_pronouns = 0;
                     for (var i = 0; i < pronouns.length; i++){
-                        let regrex = new RegExp(`[\W \w]?\\b{pronouns[i]}\\b[\W \w]?`, 'ig');
+                        let regrex = new RegExp(`\\b\\d*\\w*den\\d*\\w*\\b`, 'ig');
                         num_pronouns = tweet.match(regrex)
                         emit(pronouns[i], num_pronouns.length)
                     }
@@ -53,4 +53,4 @@ reducer = Code("""
 
 result = collection_tweets.map_reduce(mapper, reducer, "pronouns")
 for doc in result.find():
-    pprint.pprint(doc)
+    print(doc)
