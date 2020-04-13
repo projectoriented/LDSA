@@ -36,7 +36,9 @@ mapper = Code("""
                     for (var i = 0; i < pronouns.length; i++){
                         let regrex = new RegExp(`\\b\\d*\\w*den\\d*\\w*\\b`, 'ig');
                         num_pronouns = tweet.match(regrex)
-                        emit(pronouns[i], num_pronouns.length)
+                        if (num_pronouns.length != null){
+                            emit(pronouns[i], num_pronouns.length)
+                        }
                     }
                 }
                 """)
