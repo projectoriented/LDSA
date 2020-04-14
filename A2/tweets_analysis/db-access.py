@@ -31,15 +31,15 @@ mapper = Code("""
                     var pronouns = ["han","hon","den","det","denna","denne","hen"]
                     pronouns.sort();
                     var tweet = this.tweet;
+                    var regrex = new RegExp(/[\d+\W+]/ig);
 
-                    var num_pronouns = 0;
                     for (var i = 0; i < pronouns.length; i++){
-                        let regrex = new RegExp(`\\b\\d*\\w*{pronouns[i]}\\d*\\w*\\b`, 'ig');
-                        print(tweet)
-                        if (tweet.match(regrex).length >= 1){
-                            num_pronouns = tweet.match(regrex).length
-                            print(num_pronouns)
-                            emit(pronouns[i], num_pronouns);
+                        splitted_array = tweet.split(regrex);
+                        for (var j = 0; j < splitted_array.length; i++){
+                            new_word = splitted_array[j].toLowerCase();
+                            if (new_word.includes(pronouns[i])){
+                                emit(pronouns[i], 1)
+                            }
                         }
                     }
                 }
