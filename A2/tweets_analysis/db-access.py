@@ -33,13 +33,11 @@ mapper = Code("""
                     var tweet = this.tweet;
                     var regrex = new RegExp(/[\d+\W+]/ig);
 
-                    for (var i = 0; i < pronouns.length; i++){
-                        splitted_array = tweet.split(regrex);
-                        for (var j = 0; j < splitted_array.length; i++){
-                            new_word = splitted_array[j].toLowerCase();
-                            if (new_word.includes(pronouns[i])){
-                                emit(pronouns[i], 1)
-                            }
+                    splitted_array = tweet.split(regrex);
+                    for (var j = 0; j < splitted_array.length; i++){
+                        new_word = splitted_array[j].toLowerCase();
+                        if (pronouns.includes(new_word)){
+                            emit(new_word, 1)
                         }
                     }
                 }
