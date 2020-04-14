@@ -34,9 +34,10 @@ mapper = Code("""
 
                     for (var i = 0; i < pronouns.length; i++){
                         var regrex = new RegExp(/[\W \w]?\b{pronouns[i]}\b[\W \w]?/ig);
-                        var num_a = []
+                        var num_a = [];
+                        var num_n = 0;
                         if (tweet.match(regrex) == null) {
-                            continue;
+                            num_n += 1;
                         } else {
                             num_a.push(tweet.match(regrex));
                             emit(pronouns[i], num_a.length)
