@@ -31,15 +31,18 @@ mapper = Code("""
                     var pronouns = ["han","hon","den","det","denna","denne","hen"]
                     pronouns.sort();
                     var tweet = this.tweet;
-                    var regrex = new RegExp(/[\d+\W+]/ig);
 
-                    splitted_array = tweet.split(regrex);
-                    for (var j = 0; j < splitted_array.length; i++){
-                        new_word = splitted_array[j].toLowerCase();
-                        if (pronouns.includes(new_word)){
-                            emit(new_word, 1)
+                    for (var i = 0; i < pronouns.length; i++){
+                        var regrex = new RegExp(/[\W \w]?\b{pronouns[i]}\b[\W \w]?/ig);
+                        var num_a = []
+                        if (tweet.match(regrex) == null) {
+                            continue;
+                        } else {
+                            num_a.push(tweet.match(regrex));
+                            emit(pronouns[i], num_a.length)
                         }
                     }
+
                 }
                 """)
 
@@ -52,6 +55,9 @@ reducer = Code("""
                     return total;
                 }
                 """)
+
+
+
 
 result = collection_tweets.map_reduce(mapper, reducer, "pronouns")
 for doc in result.find():
