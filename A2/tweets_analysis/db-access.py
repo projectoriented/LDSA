@@ -32,6 +32,7 @@ mapper = Code("""
                     pronouns.sort();
                     var tweet = this.tweet;
 
+                    var regrex = new RegExp(/[\d+\W+]/i);
                     splitted_array = tweet.split(regrex);
                     for (var j = 0; j < splitted_array.length; i++){
                     new_word = splitted_array[j].toLowerCase();
