@@ -28,12 +28,13 @@ print('unique_tweet_count\t{}'.format(unique_tweet_count))
 
 mapper = Code("""
                 function () {
-                    var pronouns = ["han","hon","den","det","denna","denne","hen"]
+                    var pronouns = ["han","hon","den","det","denna","denne","hen"];
                     pronouns.sort();
                     var tweet = this.tweet;
 
                     for (var i = 0; i < pronouns.length; i++){
-                        var regrex = new RegExp(/[\W \w]?\b{pronouns[i]}\b[\W \w]?/ig);
+                        var replace = "[\\W \\w]?\\b" + pronouns[i] + "\\b[\\W \\w]?";
+                        var regrex = new RegExp(replace, "ig")
                         var num_a = [];
                         var num_n = 0;
                         if (tweet.match(regrex) == null) {
