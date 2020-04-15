@@ -31,10 +31,10 @@ mapper = Code("""
                     var pronouns = ["han","hon","den","det","denna","denne","hen"];
                     pronouns.sort();
                     var tweet = this.tweet;
-
                     var regrex = new RegExp(/[\d+\W+]/i);
                     splitted_array = tweet.split(regrex);
-                    for (var j = 0; j < splitted_array.length; i++){
+
+                    for (var j = 0; j < splitted_array.length; j++){
                     new_word = splitted_array[j].toLowerCase();
                     if (pronouns.includes(new_word)){
                         emit(new_word, 1)
