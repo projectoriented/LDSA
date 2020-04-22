@@ -1,0 +1,3 @@
+[submodule "jupyters-public"]
+	path = jupyters-public
+	url = https://github.com/benblamey/jupyters-public.git
